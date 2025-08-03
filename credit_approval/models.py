@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Customer(models.Model):
+class Customer(models.Model):  # customer model for the credit approval system
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     age = models.IntegerField(default=0)
@@ -14,8 +14,8 @@ class Customer(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
-class Loan(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='loans')
+class Loan(models.Model):  # loan model for the credit approval system
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="loans")
     loan_amount = models.FloatField()
     tenure = models.PositiveIntegerField()  # in months
     interest_rate = models.FloatField()

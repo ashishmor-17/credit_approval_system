@@ -82,7 +82,7 @@ class ViewLoanSerializer(serializers.Serializer):
     tenure = serializers.IntegerField()
 
 
-class ViewLoansSerializer(serializers.Serializer):
+class ViewLoansCustomerSerializer(serializers.Serializer):
     loan_id = serializers.IntegerField()
     loan_amount = serializers.FloatField()
     interest_rate = serializers.FloatField()

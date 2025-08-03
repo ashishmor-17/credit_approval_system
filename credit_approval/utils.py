@@ -18,7 +18,7 @@ def round_to_nearest_lakh(amount):
 
 
 def calculate_credit_score(customer, loan_queryset, now=None):
-    # now is for testing; defaults to today
+    # now is for testing, defaults to today
     now = now or datetime.date.today()
     loans = loan_queryset.filter(customer=customer)
     score = 100
