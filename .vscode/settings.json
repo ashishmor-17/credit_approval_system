@@ -12,5 +12,10 @@
   "flake8.args": [
     "--max-line-length=120",
     "--ignore=E111,E114,E121,E131,W503,F405,F403,E126,E501,F841,E722,E741,E226"
-  ]
+  ],
+  "python.testing.pytestArgs": [
+    "credit_approval"
+  ],
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false
 }

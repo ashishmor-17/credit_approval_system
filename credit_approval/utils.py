@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 import datetime
+import math
 from django.db.models import Sum
 
 
@@ -14,7 +16,7 @@ def calculate_emi(principal, annual_interest_rate, tenure_months):
 
 
 def round_to_nearest_lakh(amount):
-    return int(round(amount / 100000.0)) * 100000
+    return int(math.ceil(amount / 100000.0)) * 100000
 
 
 def calculate_credit_score(customer, loan_queryset, now=None):

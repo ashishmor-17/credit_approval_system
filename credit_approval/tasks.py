@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from celery import shared_task
 import pandas as pd
 from .models import Customer, Loan
