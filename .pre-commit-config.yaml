@@ -1,0 +1,48 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.4.0
+    hooks:
+      - id: check-merge-conflict
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: fix-encoding-pragma
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-json
+      - id: pretty-format-json
+        args: [--autofix]
+      - id: check-xml
+      - id: debug-statements
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: requirements-txt-fixer
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+        args: [--line-length=120]
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+
+  - repo: https://github.com/resmio/pre-commit-doctoc
+    rev: v1.0.0
+    hooks:
+      - id: doctoc
+        args: [--title=## Table of Contents]
+
+  - repo: https://github.com/jendrikseipp/vulture
+    rev: "v2.11"
+    hooks:
+      - id: vulture
+
+default_language_version:
+  python: python3
+
+fail_fast: true
+exclude: (migrations)
