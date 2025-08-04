@@ -16,7 +16,6 @@
     - [4. View Loan Details](#4-view-loan-details)
     - [5. View Loans by Customer](#5-view-loans-by-customer)
   - [General Guidelines](#general-guidelines)
-  - [License](#license)
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Credit Approval System
@@ -47,8 +46,8 @@ The Credit Approval System is a backend application built using Django and Djang
 1. **Clone the repository:**
 
    ```bash
-   git clone [https://github.com/ashishmor-17/credit-system](https://github.com/ashishmor-17/credit-system)
-   cd credit-system
+   git clone [https://github.com/ashishmor-17/credit-system](https://github.com/ashishmor-17/credit_approval_system)
+   cd credit_approval_system
    ```
 
 2. **Build and run the Docker containers:**
