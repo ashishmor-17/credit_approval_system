@@ -7,15 +7,16 @@
   - [Features](#features)
   - [Setup and Initialization](#setup-and-initialization)
     - [Requirements](#requirements)
-    - [Installation](#installation)
+  - [Setup Instructions](#setup-instructions)
   - [Data Ingestion](#data-ingestion)
   - [API Endpoints](#api-endpoints)
-    - [1. Register Customer](#1-register-customer)
-    - [2. Check Eligibility](#2-check-eligibility)
-    - [3. Create Loan](#3-create-loan)
-    - [4. View Loan Details](#4-view-loan-details)
-    - [5. View Loans by Customer](#5-view-loans-by-customer)
+    - [1. Register Customer Endpoint: `/register`](#1-register-customer-endpoint-register)
+    - [2. Check Eligibility Endpoint: `/check-eligibility`](#2-check-eligibility-endpoint-check-eligibility)
+    - [3. Create Loan Endpoint: `/create-loan`](#3-create-loan-endpoint-create-loan)
+    - [4. View Loan Details Endpoint: `/view-loan/<loan_id>`](#4-view-loan-details-endpoint-view-loanloan_id)
+    - [5. View Loans by Customer Endpoint: `/view-loans/<customer_id>`](#5-view-loans-by-customer-endpoint-view-loanscustomer_id)
   - [General Guidelines](#general-guidelines)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Credit Approval System
