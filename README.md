@@ -1,83 +1,160 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Table of Contents
 
-- [For Mac/Linux: source venv/bin/activate](#for-maclinux-source-venvbinactivate)
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+Table of Contents
+Credit Approval System
+
+Overview
+
+Features
+
+Setup and Initialization
+
+Requirements
+
+Installation
+
+Data Ingestion
+
+API Endpoints
+
+1. Register Customer
+
+2. Check Eligibility
+
+3. Create Loan
+
+4. View Loan Details
+
+5. View Loans by Customer
+
+General Guidelines
+
+License
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Credit Approval System
-This project presents a robust and scalable Django-based Credit Approval System, designed to efficiently manage customer credit and loan data. It leverages a modern tech stack to ensure high performance, reliability, and ease of deployment, making it ideal for financial institutions needing a streamlined credit assessment process.
+Overview
+The Credit Approval System is a backend application built using Django and Django Rest Framework. It is designed to manage customer data and loan processing based on historical data and future transactions. The system assesses loan eligibility and manages loan approvals based on customer credit scores derived from their loan history.
 
-🚀 Key Features
-Customer & Loan Data Ingestion: Seamlessly import customer and loan information from CSV files.
+Features
+Register new customers with an approved credit limit based on their monthly salary.
 
-RESTful APIs: Comprehensive APIs for managing customer profiles and loan applications.
+Check loan eligibility based on customer credit scores calculated from historical loan data.
 
-Asynchronous Processing: Utilizes Celery workers for background tasks, ensuring the main application remains responsive during heavy data processing.
+Process new loans and provide details about approved loans.
 
-Reliable Data Storage: Powered by PostgreSQL for secure and scalable relational data management.
+View customer and loan details through API endpoints.
 
-Efficient Messaging: Employs Redis as a high-performance message broker for Celery.
+Setup and Initialization
+Requirements
+Python 3.11 or higher
 
-Containerized Deployment: Fully Dockerized for consistent and straightforward deployment across various environments.
+Django 4.2+
 
-📦 Technologies Under the Hood
-Python 3.11: The core programming language.
+Django Rest Framework
 
-Django 4.2+: High-level Python web framework for rapid development.
+PostgreSQL
 
-Django REST Framework: Toolkit for building powerful Web APIs.
+Docker
 
-Celery: Distributed task queue for asynchronous operations.
-
-Redis: In-memory data structure store, used as Celery's message broker.
-
-PostgreSQL: Open-source relational database system.
-
-Docker & Docker Compose: For containerization and orchestration.
-
-Pytest: A flexible and scalable testing framework.
-
-🧪 Running Locally
-To get the Credit Approval System up and running on your local machine, follow these steps:
-
-Prerequisites
-Setup Steps
-Clone the Repository:
+Installation
+Clone the repository:
 
 git clone https://github.com/ashishmor-17/credit_approval_system.git
-cd credit-system
+cd credit_approval_system
 
-Set up Python Environment:
-
-python -m venv venv
-source venv/bin/activate  # On Windows
-# For Mac/Linux: source venv/bin/activate
-pip install -r requirements.txt
-
-Run Migrations:
-
-python manage.py migrate
-
-Start Services with Docker Compose:
-This will build and start the Django application, Celery workers, Redis, and PostgreSQL containers.
+Build and run the Docker containers:
 
 docker-compose up --build
 
-Wait for all services to be healthy before proceeding.
+Access the application at http://localhost:8000.
 
-Ingest Sample Data:
-This command processes sample CSV files to populate the database with initial customer and loan data.
+Data Ingestion
+The application requires initial data to be ingested from the provided Excel files:
 
-python manage.py ingest_data
+customer_data.xlsx: Contains existing customer data.
 
-Access the Application:
-Once all services are running, you can access the Django development server (if not using Docker for the Django app directly) or the Dockerized application.
+loan_data.xlsx: Contains historical loan data.
 
-👨‍💻 Author
-Ashish Mor
-GitHub: @ashishmor-17
+Background tasks will handle the ingestion of this data into the PostgreSQL database.
 
-📝 License
-This project is open-source and available under the MIT License.
+API Endpoints
+1. Register Customer
+Endpoint: /register
+
+Method: POST
+
+Request Body:
+
+first_name: First Name of customer (string)
+
+last_name: Last Name of customer (string)
+
+age: Age of customer (int)
+
+monthly_income: Monthly income of individual (int)
+
+phone_number: Phone number (int)
+
+Response: Customer details including customer_id and approved_limit.
+
+2. Check Eligibility
+Endpoint: /check-eligibility
+
+Method: POST
+
+Request Body:
+
+customer_id: Id of customer (int)
+
+loan_amount: Requested loan amount (float)
+
+interest_rate: Interest rate on loan (float)
+
+tenure: Tenure of loan (int)
+
+Response: Loan approval status and corrected interest rate if applicable.
+
+3. Create Loan
+Endpoint: /create-loan
+
+Method: POST
+
+Request Body:
+
+customer_id: Id of customer (int)
+
+loan_amount: Requested loan amount (float)
+
+interest_rate: Interest rate on loan (float)
+
+tenure: Tenure of loan (int)
+
+Response: Loan approval status and details.
+
+4. View Loan Details
+Endpoint: /view-loan/<loan_id>
+
+Method: GET
+
+Response: Details of the specified loan and associated customer information.
+
+5. View Loans by Customer
+Endpoint: /view-loans/<customer_id>
+
+Method: GET
+
+Response: List of all loans associated with the specified customer.
+
+General Guidelines
+Ensure code quality and organization.
+
+Unit tests are encouraged for bonus points.
+
+The application should be fully dockerized and run from a single command.
+
+License
+This project is licensed under the MIT License.
