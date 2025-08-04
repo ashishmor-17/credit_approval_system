@@ -1,160 +1,173 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
 
-Table of Contents
-Credit Approval System
-
-Overview
-
-Features
-
-Setup and Initialization
-
-Requirements
-
-Installation
-
-Data Ingestion
-
-API Endpoints
-
-1. Register Customer
-
-2. Check Eligibility
-
-3. Create Loan
-
-4. View Loan Details
-
-5. View Loans by Customer
-
-General Guidelines
-
-License
-
+- [Credit Approval System](#credit-approval-system)
+  - [Overview](#overview)
+  - [Features](#features)
+  - [Setup and Initialization](#setup-and-initialization)
+    - [Requirements](#requirements)
+    - [Installation](#installation)
+  - [Data Ingestion](#data-ingestion)
+  - [API Endpoints](#api-endpoints)
+    - [1. Register Customer](#1-register-customer)
+    - [2. Check Eligibility](#2-check-eligibility)
+    - [3. Create Loan](#3-create-loan)
+    - [4. View Loan Details](#4-view-loan-details)
+    - [5. View Loans by Customer](#5-view-loans-by-customer)
+  - [General Guidelines](#general-guidelines)
+  - [License](#license)
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-Credit Approval System
-Overview
+# Credit Approval System
+
+## Overview
+
 The Credit Approval System is a backend application built using Django and Django Rest Framework. It is designed to manage customer data and loan processing based on historical data and future transactions. The system assesses loan eligibility and manages loan approvals based on customer credit scores derived from their loan history.
 
-Features
-Register new customers with an approved credit limit based on their monthly salary.
+## Features
 
-Check loan eligibility based on customer credit scores calculated from historical loan data.
+- Register new customers with an approved credit limit based on their monthly salary.
+- Check loan eligibility based on customer credit scores calculated from historical loan data.
+- Process new loans and provide details about approved loans.
+- View customer and loan details through API endpoints.
 
-Process new loans and provide details about approved loans.
+## Setup and Initialization
 
-View customer and loan details through API endpoints.
+### Requirements
 
-Setup and Initialization
-Requirements
-Python 3.11 or higher
+- Python 3.11 or higher  
+- Django 4.2+  
+- Django Rest Framework  
+- PostgreSQL  
+- Docker  
 
-Django 4.2+
+### Installation
 
-Django Rest Framework
+```{=html}
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+```
+```{=html}
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+```
+## Table of Contents
 
-PostgreSQL
+-   [Credit Approval System](#credit-approval-system)
+    -   [Overview](#overview)
+    -   [Features](#features)
+    -   [Setup and Initialization](#setup-and-initialization)
+        -   [Requirements](#requirements)
+        -   [Installation](#installation)
+    -   [Data Ingestion](#data-ingestion)
+    -   [API Endpoints](#api-endpoints)
+        -   [1. Register Customer](#1-register-customer)
+        -   [2. Check Eligibility](#2-check-eligibility)
+        -   [3. Create Loan](#3-create-loan)
+        -   [4. View Loan Details](#4-view-loan-details)
+        -   [5. View Loans by Customer](#5-view-loans-by-customer)
+    -   [General Guidelines](#general-guidelines)
+    -   [License](#license)
+        `<!-- END doctoc generated TOC please keep comment here to allow auto update -->`{=html}
 
-Docker
+# Credit Approval System
 
-Installation
-Clone the repository:
+## Overview
 
-git clone https://github.com/ashishmor-17/credit_approval_system.git
-cd credit_approval_system
+The Credit Approval System is a backend application built using Django
+and Django Rest Framework. It is designed to manage customer data and
+loan processing based on historical data and future transactions. The
+system assesses loan eligibility and manages loan approvals based on
+customer credit scores derived from their loan history.
 
-Build and run the Docker containers:
+## Features
 
-docker-compose up --build
+-   Register new customers with an approved credit limit based on their
+    monthly salary.
+-   Check loan eligibility based on customer credit scores calculated
+    from historical loan data.
+-   Process new loans and provide details about approved loans.
+-   View customer and loan details through API endpoints.
 
-Access the application at http://localhost:8000.
+## Setup and Initialization
 
-Data Ingestion
-The application requires initial data to be ingested from the provided Excel files:
+### Requirements
 
-customer_data.xlsx: Contains existing customer data.
+-   Python 3.11 or higher\
+-   Django 4.2+\
+-   Django Rest Framework\
+-   PostgreSQL\
+-   Docker
 
-loan_data.xlsx: Contains historical loan data.
+### Installation
 
-Background tasks will handle the ingestion of this data into the PostgreSQL database.
+1.  **Clone the repository:**
 
-API Endpoints
-1. Register Customer
-Endpoint: /register
+\`\`\`bash git clone https://github.com/ashishmor-17/credit-system cd
+credit-system
+
+Build and run the Docker containers: docker-compose up --build
+
+Data Ingestion The application requires initial data to be ingested from
+the provided Excel files inside the data/ folder:
+
+data/customer_data.xlsx: Contains existing customer data.
+
+data/loan_data.xlsx: Contains historical loan data.
+
+These files are processed using background Celery tasks once the app
+starts.
+
+API Endpoints 1. Register Customer Endpoint: /register
 
 Method: POST
 
 Request Body:
 
-first_name: First Name of customer (string)
+json Copy Edit { "first_name": "John", "last_name": "Doe", "age": 30,
+"monthly_income": 60000, "phone_number": 9876543210 } Response:
 
-last_name: Last Name of customer (string)
-
-age: Age of customer (int)
-
-monthly_income: Monthly income of individual (int)
-
-phone_number: Phone number (int)
-
-Response: Customer details including customer_id and approved_limit.
-
-2. Check Eligibility
-Endpoint: /check-eligibility
+json Copy Edit { "customer_id": 1, "approved_limit": 240000 } 2. Check
+Eligibility Endpoint: /check-eligibility
 
 Method: POST
 
 Request Body:
 
-customer_id: Id of customer (int)
+json Copy Edit { "customer_id": 1, "loan_amount": 50000,
+"interest_rate": 10.5, "tenure": 12 } Response:
 
-loan_amount: Requested loan amount (float)
-
-interest_rate: Interest rate on loan (float)
-
-tenure: Tenure of loan (int)
-
-Response: Loan approval status and corrected interest rate if applicable.
-
-3. Create Loan
-Endpoint: /create-loan
+json Copy Edit { "customer_id": 1, "loan_approved": true,
+"interest_rate": 10.5, "tenure": 12, "monthly_installment": 4395.79 } 3.
+Create Loan Endpoint: /create-loan
 
 Method: POST
 
 Request Body:
 
-customer_id: Id of customer (int)
+json Copy Edit { "customer_id": 1, "loan_amount": 50000,
+"interest_rate": 10.5, "tenure": 12 } Response:
 
-loan_amount: Requested loan amount (float)
-
-interest_rate: Interest rate on loan (float)
-
-tenure: Tenure of loan (int)
-
-Response: Loan approval status and details.
-
-4. View Loan Details
-Endpoint: /view-loan/<loan_id>
+json Copy Edit { "loan_id": 101, "loan_approved": true,
+"monthly_installment": 4395.79, "tenure": 12 } 4. View Loan Details
+Endpoint: /view-loan/`<loan_id>`{=html}
 
 Method: GET
 
-Response: Details of the specified loan and associated customer information.
+Response:
 
-5. View Loans by Customer
-Endpoint: /view-loans/<customer_id>
+json Copy Edit { "loan_id": 101, "customer": { "id": 1, "first_name":
+"John", "last_name": "Doe" }, "loan_amount": 50000, "tenure": 12,
+"interest_rate": 10.5, "monthly_installment": 4395.79, "start_date":
+"2025-08-01", "end_date": "2026-08-01" } 5. View Loans by Customer
+Endpoint: /view-loans/`<customer_id>`{=html}
 
 Method: GET
 
-Response: List of all loans associated with the specified customer.
+Response:
 
-General Guidelines
-Ensure code quality and organization.
-
-Unit tests are encouraged for bonus points.
-
-The application should be fully dockerized and run from a single command.
-
-License
-This project is licensed under the MIT License.
+json Copy Edit \[ { "loan_id": 101, "loan_amount": 50000, "tenure": 12,
+"interest_rate": 10.5, "monthly_installment": 4395.79 }, ...\] General
+Guidelines Ensure code quality and modularity. Unit tests are
+encouraged. The app is fully dockerized and can be run with a single
+command. Use background workers (Celery + Redis) for ingesting large
+Excel datasets asynchronously.
