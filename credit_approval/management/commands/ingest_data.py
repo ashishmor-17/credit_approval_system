@@ -7,7 +7,7 @@ from credit_approval.tasks import ingest_customer_data, ingest_loan_data
 class Command(BaseCommand):
     help = "Ingests customer_data.xlsx and loan_data.xlsx into the database using Celery tasks."
 
-    def handle(self):
+    def handle(self, *args, **kwargs):
         self.stdout.write(self.style.WARNING("Ingesting customer data..."))
         ingest_customer_data.delay()
         self.stdout.write(self.style.WARNING("Ingesting loan data..."))

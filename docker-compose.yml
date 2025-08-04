@@ -9,23 +9,23 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      # - db
+      - db
       - redis
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
 
-  # db:
-  #   image: postgres:15
-  #   restart: always
-  #   environment:
-  #     POSTGRES_DB: credit_approval
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: postgres
-  #   ports:
-  #     - "5432:5432"
-  #   volumes:
-  #     - pgdata:/var/lib/postgresql/data
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: credit_approval
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   redis:
     image: redis:7
@@ -36,7 +36,7 @@ services:
     volumes:
       - .:/app
     depends_on:
-      # - db
+      - db
       - redis
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
