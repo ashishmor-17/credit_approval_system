@@ -6,7 +6,7 @@ from .models import Customer, Loan
 
 @shared_task
 def ingest_customer_data():
-    df = pd.read_excel("customer_data.xlsx")
+    df = pd.read_excel("data/customer_data.xlsx")
     print(df.columns)
     for _, row in df.iterrows():
         Customer.objects.update_or_create(
@@ -24,7 +24,7 @@ def ingest_customer_data():
 
 @shared_task
 def ingest_loan_data():
-    df = pd.read_excel("loan_data.xlsx")
+    df = pd.read_excel("data/loan_data.xlsx")
     print(df.columns)
     for _, row in df.iterrows():
         customer = Customer.objects.get(id=row["Customer ID"])

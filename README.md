@@ -2,112 +2,82 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Credit Approval System](#credit-approval-system)
-  - [Overview](#overview)
-  - [Features](#features)
-  - [Setup and Initialization](#setup-and-initialization)
-    - [Requirements](#requirements)
-    - [Installation](#installation)
-    - [Data Ingestion](#data-ingestion)
-  - [API Endpoints](#api-endpoints)
-    - [1. Register Customer](#1-register-customer)
-    - [2. Check Eligibility](#2-check-eligibility)
-    - [3. Create Loan](#3-create-loan)
-    - [4. View Loan Details](#4-view-loan-details)
-    - [5. View Loans by Customer](#5-view-loans-by-customer)
-  - [General Guidelines](#general-guidelines)
-  - [License](#license)
+- [For Mac/Linux: source venv/bin/activate](#for-maclinux-source-venvbinactivate)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Credit Approval System
+Credit Approval System
+This project presents a robust and scalable Django-based Credit Approval System, designed to efficiently manage customer credit and loan data. It leverages a modern tech stack to ensure high performance, reliability, and ease of deployment, making it ideal for financial institutions needing a streamlined credit assessment process.
 
-## Overview
-The Credit Approval System is a backend application built using Django and Django Rest Framework. It is designed to manage customer data and loan processing based on historical data and future transactions. The system assesses loan eligibility and manages loan approvals based on customer credit scores derived from their loan history.
+🚀 Key Features
+Customer & Loan Data Ingestion: Seamlessly import customer and loan information from CSV files.
 
-## Features
-- Register new customers with an approved credit limit based on their monthly salary.
-- Check loan eligibility based on customer credit scores calculated from historical loan data.
-- Process new loans and provide details about approved loans.
-- View customer and loan details through API endpoints.
+RESTful APIs: Comprehensive APIs for managing customer profiles and loan applications.
 
-## Setup and Initialization
+Asynchronous Processing: Utilizes Celery workers for background tasks, ensuring the main application remains responsive during heavy data processing.
 
-### Requirements
-- Python 3.11 or higher
-- Django 4.2+
-- Django Rest Framework
-- PostgreSQL
-- Docker
+Reliable Data Storage: Powered by PostgreSQL for secure and scalable relational data management.
 
-### Installation
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   cd credit_approval_system
-   ```
+Efficient Messaging: Employs Redis as a high-performance message broker for Celery.
 
-2. Build and run the Docker containers:
-   ```
-   docker-compose up --build
-   ```
+Containerized Deployment: Fully Dockerized for consistent and straightforward deployment across various environments.
 
-3. Access the application at `http://localhost:8000`.
+📦 Technologies Under the Hood
+Python 3.11: The core programming language.
 
-### Data Ingestion
-The application requires initial data to be ingested from the provided Excel files:
-- `customer_data.xlsx`: Contains existing customer data.
-- `loan_data.xlsx`: Contains historical loan data.
+Django 4.2+: High-level Python web framework for rapid development.
 
-Background tasks will handle the ingestion of this data into the PostgreSQL database.
+Django REST Framework: Toolkit for building powerful Web APIs.
 
-## API Endpoints
+Celery: Distributed task queue for asynchronous operations.
 
-### 1. Register Customer
-- **Endpoint**: `/register`
-- **Method**: POST
-- **Request Body**:
-  - `first_name`: First Name of customer (string)
-  - `last_name`: Last Name of customer (string)
-  - `age`: Age of customer (int)
-  - `monthly_income`: Monthly income of individual (int)
-  - `phone_number`: Phone number (int)
-- **Response**: Customer details including `customer_id` and `approved_limit`.
+Redis: In-memory data structure store, used as Celery's message broker.
 
-### 2. Check Eligibility
-- **Endpoint**: `/check-eligibility`
-- **Method**: POST
-- **Request Body**:
-  - `customer_id`: Id of customer (int)
-  - `loan_amount`: Requested loan amount (float)
-  - `interest_rate`: Interest rate on loan (float)
-  - `tenure`: Tenure of loan (int)
-- **Response**: Loan approval status and corrected interest rate if applicable.
+PostgreSQL: Open-source relational database system.
 
-### 3. Create Loan
-- **Endpoint**: `/create-loan`
-- **Method**: POST
-- **Request Body**:
-  - `customer_id`: Id of customer (int)
-  - `loan_amount`: Requested loan amount (float)
-  - `interest_rate`: Interest rate on loan (float)
-  - `tenure`: Tenure of loan (int)
-- **Response**: Loan approval status and details.
+Docker & Docker Compose: For containerization and orchestration.
 
-### 4. View Loan Details
-- **Endpoint**: `/view-loan/<loan_id>`
-- **Method**: GET
-- **Response**: Details of the specified loan and associated customer information.
+Pytest: A flexible and scalable testing framework.
 
-### 5. View Loans by Customer
-- **Endpoint**: `/view-loans/<customer_id>`
-- **Method**: GET
-- **Response**: List of all loans associated with the specified customer.
+🧪 Running Locally
+To get the Credit Approval System up and running on your local machine, follow these steps:
 
-## General Guidelines
-- Ensure code quality and organization.
-- Unit tests are encouraged for bonus points.
-- The application should be fully dockerized and run from a single command.
+Prerequisites
+Setup Steps
+Clone the Repository:
 
-## License
-This project is licensed under the MIT License.
+git clone https://github.com/ashishmor-17/credit_approval_system.git
+cd credit-system
+
+Set up Python Environment:
+
+python -m venv venv
+source venv/bin/activate  # On Windows
+# For Mac/Linux: source venv/bin/activate
+pip install -r requirements.txt
+
+Run Migrations:
+
+python manage.py migrate
+
+Start Services with Docker Compose:
+This will build and start the Django application, Celery workers, Redis, and PostgreSQL containers.
+
+docker-compose up --build
+
+Wait for all services to be healthy before proceeding.
+
+Ingest Sample Data:
+This command processes sample CSV files to populate the database with initial customer and loan data.
+
+python manage.py ingest_data
+
+Access the Application:
+Once all services are running, you can access the Django development server (if not using Docker for the Django app directly) or the Dockerized application.
+
+👨‍💻 Author
+Ashish Mor
+GitHub: @ashishmor-17
+
+📝 License
+This project is open-source and available under the MIT License.
